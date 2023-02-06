@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Videogiochi</title>
+	</head>
+	<body>
+		<div>
+			<a th:href="@{/videogiochi/edit}">Inserisci un Videogioco!</a>
+			<a th:href="@{/sviluppatori/list}">Passa agli sviluppatori!</a>
+			
+			<div th:if="${videogiochi.isEmpty()}">
+				La tabella dei videogiochi &egrave; vuota..
+			</div>
+			
+			<form th:action="@{/videogiochi/list}" th:object="${videogioco}" method="post">
+				<div>
+					<label for="titolo">Titolo</label>
+					<input type="text" id="titolo" th:field="*{titolo}">
+					<button type="submit">Cerca</button>
+				</div>
+			</form>
+			
+			<table th:unless="${videogiochi.isEmpty()}">
+				<thead>
+					<tr>
+						<th>Titolo</th>
+						<th>Sviluppatore</th>
+						<th>Anno</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="videogioco : ${videogiochi}">
+						<td th:text="${videogioco.titolo}"></td>
+						<td th:text="${videogioco.sviluppatore.nome}"></td>
+						<td th:text="${videogioco.anno}"></td>
+						<td>
+							<a th:href="@{/videogiochi/edit/{id}(id = ${videogioco.id})}">Aggiorna</a>
+							<a th:href="@{/videogiochi/delete/{id}(id = ${videogioco.id})}">Cancella</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

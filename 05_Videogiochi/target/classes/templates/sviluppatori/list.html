@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Videogiochi</title>
+	</head>
+	<body>
+		<div>
+			<a th:href="@{/sviluppatori/edit}">Inserisci uno Sviluppatore!</a>
+			<a th:href="@{/videogiochi/list}">Passa ai Videogiochi!</a>
+			
+			
+			<div th:if="${sviluppatori.isEmpty()}">
+				La tabella degli sviluppatori &egrave; vuota..
+			</div>
+			
+			<table th:unless="${sviluppatori.isEmpty()}">
+				<thead>
+					<tr>
+						<th>Nome</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="sviluppatore : ${sviluppatori}">
+						<td th:text="${sviluppatore.nome}"></td>
+						<td>
+							<a th:href="@{/sviluppatori/edit/{id}(id = ${sviluppatore.id})}">Aggiorna</a>
+							<a th:href="@{/sviluppatori/delete/{id}(id = ${sviluppatore.id})}">Cancella</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
